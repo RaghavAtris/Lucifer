@@ -9,7 +9,7 @@ Because of IT's near-limitless capacity, It can perform various tasks presented 
 
 <code><img height="100" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/python/python.png"></code>
 
-## Lucifer: Revolutionising Technology Quick Demo [YouTube video](https://www.youtube.com/watch?v=oKtrHy0ERNA)
+## Lucifer: Revolutionising Technology Quick Demo [YouTube video](https://youtu.be/Qlq6Q2JNQHU)
 
 it's Capabilities and more...
 
