@@ -13,9 +13,9 @@ Because of IT's near-limitless capacity, It can perform various tasks presented 
 
 it's Capabilities and more...
 
-- Notify you about CHANGE IN WEATHER
-- INTEGRATE to improve your daily tasks
-- Alert the user ABOUT The RECENT DEVELOPMENTS AROUND THE WORLD
+- Notify you about change in weather
+- Integrate to improve your daily tasks
+- Alert the user about the recent developments around the world
 - Whenever asked, represent any location on the map.
 - Use voice control to calculate any mathematical expressions
 - Operate websites, software, and apps.
