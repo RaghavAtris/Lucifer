@@ -31,7 +31,7 @@ I have used a bunch of API Keys To Run this proggramme.
 - [BEAUTIFUL SOUP](https://beautiful-soup-4.readthedocs.io/en/latest/)
 - [NEWSAPI](https://newsapi.org)
   
-## This project is licensed under [MIT License](https://github.com/RaghavAtris/Lucifer/LICENSE) 2023 Raghav Atris
+## This project is licensed under [MIT License](https://github.com/RaghavAtris/Lucifer/blob/main/LICENSE.md) 2023 Raghav Atris
 
 ## Systeam Requirements
 - Operating System : Windows 11/10/8
