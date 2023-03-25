@@ -24,13 +24,14 @@ it's Capabilities and more...
 - Can play your favourite songs by using youtube voice
 
 ## API Keys
-To run this program you will require a bunch of API keys. Register your API key by clicking the following links
+
+I have used a bunch of API Keys To Run this proggramme. 
 
 - [OPEN API](https://openai.com)
 - [BEAUTIFUL SOUP](https://beautiful-soup-4.readthedocs.io/en/latest/)
 - [NEWSAPI](https://newsapi.org)
   
-This project is licensed under [MIT License](https://github.com/RaghavAtris/Lucifer/LICENSE) 2023 Raghav Atris
+## This project is licensed under [MIT License](https://github.com/RaghavAtris/Lucifer/LICENSE) 2023 Raghav Atris
 
 ## Systeam Requirements
 - Operating System : Windows 11/10/8
