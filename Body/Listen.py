@@ -1,11 +1,10 @@
 import speech_recognition as sr #pip install speechrecognition
 from googletrans import Translator #pip install googletrans==3.1.0a0
 
-
 def Listen(self):
-
+    
     r = sr.Recognizer()
-
+    
     with sr.Microphone() as source:
         print("Listening...")
         r.pause_threshold = 1
@@ -22,7 +21,6 @@ def Listen(self):
     query = str(query).lower()
     return query
 
-
 def TranslationHinToEng(Text):
     line = str(Text)
     translate = Translator()
@@ -31,9 +29,7 @@ def TranslationHinToEng(Text):
     print(f"You : {data}.")
     return data
 
-
 def MicExecution(self):
     query = Listen(self)
     data = TranslationHinToEng(query)
     return data
-
