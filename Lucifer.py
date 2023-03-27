@@ -33,15 +33,13 @@ def YouTube(term):
     pywhatkit.playonyt(term)
 
 class MainThread(QThread):
-    
     def __init__(self):
         super(MainThread,self).__init__()
     def run(self):
         MainExecution(self)
 
 def MainExecution(self):
-    Speak("Hello There, I'm Lucifer")
-    Speak("Your Own Virtual Consciousness. How can I be of Your Service?")
+    Speak("Hello There, I'm Lucifer. Your Own Virtual Consciousness. How can I be of Your Service?")
 
     while True:
         self.Data = MicExecution(self)
@@ -109,7 +107,7 @@ def MainExecution(self):
                     Speak(
                         "we are draining, please connect our system to charging point or our system will shutdown soon")
 
-        elif "open camera" in self.Data or "Open Camera" in self.Data:
+        elif "open camera" in self.Datas:
                 Speak(random.choice(
                     ["Sure!, opening camera", "Alright!, opening camera"]))
                 cap = cv2.VideoCapture(0)
@@ -253,34 +251,6 @@ def MainExecution(self):
 
             webbrowser.open(url)
             Speak(f'location of {self.Data} is on your screen')
-
-        elif "social media" in self.Data:
-             Speak("What Should i check?")     
-             self.Data = MicExecution(self)
-             self.Data = str(self.Data)
-             if "instagram" in self.Data:
-                Speak("Sure! Opening Instagram!")
-                webbrowser.open("instagram.com")
-             elif "facebook" in self.Data:
-                Speak("Sure! Opening Facebook!")
-                webbrowser.open("Facebook.com")
-             elif "twitter" in self.Data:
-                Speak("Sure! Opening Twitter")
-                webbrowser.open("twitter.com")
-             elif "linkedin" in self.Data:
-                  Speak("Sure! Opening LinkedIn")
-                  webbrowser.open("in.linkedin.com")
-             else:
-                  Speak("Sorry! I did'nt understand")   
-                  pass     
-
-        elif "hide all file" in self.Data or "hide this folder" in self.Data or "make all files invisible" in self.Data or "make this folder invisible" in self.Data:
-                os.system("attrib +h /s /d")
-                Speak("All the files in this folder are now hidden")
-
-        elif "visible" in self.Data or "make files visible" in self.Data:
-                os.system("attrib -h /s /d")
-                Speak("All the files in this folder are now visible to everyone. I hope you are taking this decision in your own peace")         
 
         elif "shutdown" in self.Data:
                 Speak("okay, please wait, Initializing shutdown protocol")
