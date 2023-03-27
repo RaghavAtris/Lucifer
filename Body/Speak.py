@@ -17,16 +17,11 @@ ButtonSelection = Select(driver.find_element(by=By.XPATH,value='/html/body/div[4
 ButtonSelection.select_by_visible_text('British English / Brian')
 
 def Speak(Text):
-
     lengthoftext = len(str(Text))
-
     if lengthoftext==0:
         pass
 
     else:
-        print("")
-        print(f"AI : {Text}.")
-        print("")
         Data = str(Text)
         xpathofsec = '/html/body/div[4]/div[2]/form/textarea'
         driver.find_element(By.XPATH,value=xpathofsec).send_keys(Data)
