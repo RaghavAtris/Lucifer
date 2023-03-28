@@ -144,7 +144,7 @@ def MainExecution(self):
             except:
                 Speak("Please try again!")
 
-        elif "reminder" in self.Data:
+        elif "reminder" in self.Data or "remember that" in self.Data:
                 Speak("What is the reminder?")
                 self.Data = MicExecution(self)
                 self.Data = str(self.Data)
@@ -154,9 +154,9 @@ def MainExecution(self):
                 reminder_file.write(self.Data)
                 reminder_file.close()       
 
-        elif "do you know anything" in self.Data or "remember" in self.Data:
+        elif "do you remember anything" in self.Data or "what do you remember" in self.Data:
                 reminder_file = open("DataBase\\data.txt", 'r')
-                Speak("You said me to remember that: " + reminder_file.read())
+                Speak("You said to remember that: " + reminder_file.read())
 
         elif "screenshot" in self.Data:
              pyautogui.keyDown("win")
