@@ -67,6 +67,15 @@ def MainExecution(self):
             for i in range(len(day)):
                 Speak(f"{head[i]}")   
         
+        elif 'play music' in self.Data:
+           music_dir = ''
+           songs = os.listdir(music_dir)
+           rd = random.choice(songs)
+           print(songs)
+           for songs in songs:
+               if songs.endswith('.mp3'):
+                   os.startfile(os.path.join(music_dir, songs))
+
         elif "weather" in self.Data or "temperature" in self.Data:
              search = "temperature"
              url = f"https://www.google.com/search?q={search}"
@@ -134,6 +143,27 @@ def MainExecution(self):
                 pyautogui.write(self.Data)
             except:
                 Speak("Please try again!")
+
+        elif "reminder" in self.Data:
+                Speak("What is the reminder?")
+                self.Data = MicExecution(self)
+                self.Data = str(self.Data)
+                Speak("You said to remember that" + data)
+                reminder_file = open("DataBase\\data.txt", 'a')
+                reminder_file.write('\n')
+                reminder_file.write(self.Data)
+                reminder_file.close()       
+
+        elif "do you know anything" in self.Data or "remember" in self.Data:
+                reminder_file = open("DataBase\\data.txt", 'r')
+                Speak("You said me to remember that: " + reminder_file.read())
+
+        elif "screenshot" in self.Data:
+             pyautogui.keyDown("win")
+             pyautogui.keyDown("shift")
+             pyautogui.press("s")
+             pyautogui.keyUp("win")
+             pyautogui.keyUp("shift")
 
         elif "cpu" in self.Data:
              usage = str(psutil.cpu_percent())
