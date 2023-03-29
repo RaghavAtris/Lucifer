@@ -11,6 +11,8 @@ import pywhatkit
 import webbrowser
 import sys
 import cv2
+import speedtest
+from pyler import notification
 import os
 import winshell
 import pyautogui
@@ -116,7 +118,7 @@ def MainExecution(self):
                     Speak(
                         "we are draining, please connect our system to charging point or our system will shutdown soon")
 
-        elif "open camera" in self.Datas:
+        elif "camera" in self.Datas:
                 Speak(random.choice(
                     ["Sure!, opening camera", "Alright!, opening camera"]))
                 cap = cv2.VideoCapture(0)
@@ -128,6 +130,14 @@ def MainExecution(self):
                         break
                 cap.release()
                 cv2.destroyAllWindows()
+
+        elif "internet speed" in self.Data:
+                    Speak("please wait, fetching your internet speed")
+                    wifi  = speedtest.Speedtest()
+                    upload_net = wifi.upload()/1048576         #Megabyte = 1024*1024 Bytes
+                    download_net = wifi.download()/1048576
+                    Speak(f"Wifi download speed is {download_net} mbp/s")
+                    Speak(f"Wifi Upload speed is {upload_net} mbp/s")        
         
         elif "note" in self.Data:
             pyautogui.press('win')
@@ -194,6 +204,31 @@ def MainExecution(self):
             except:
                 Speak("It doesn't look like you have an app like that")        
         
+        elif "schedule my day" in self.Data:
+            tasks = [] #Empty list 
+            Speak("Do you want to clear old tasks (Please speak YES or NO)")
+            self.Data = MicExecution(self)
+            self.Data = str(self.Data)
+            if "yes" in self.Data:
+                file = open("tasks.txt","w")
+                file.write(f"")
+                file.close()
+                no_tasks = int(input("Enter the no. of tasks :- "))
+                i = 0
+                for i in range(no_tasks):
+                    tasks.append(input("Enter the task :- "))
+                    file = open("DataBase\\tasks.txt","a")
+                    file.write(f"{i}. {tasks[i]}\n")
+                    file.close()
+            elif "no" in self.Data:
+                i = 0
+                no_tasks = int(input("Enter the no. of tasks :- "))
+                for i in range(no_tasks):
+                    tasks.append(input("Enter the task :- "))
+                    file = open("DataBase\\tasks.txt","a")
+                    file.write(f"{i}. {tasks[i]}\n")
+                    file.close()
+
         elif "type" in self.Data or "write" in self.Data:
             try:
                 self.Data = self.Data.replace("type", "")
@@ -201,8 +236,18 @@ def MainExecution(self):
                 self.Data = self.Data.replace("write", "")
                 pyautogui.write(self.Data)
             except:
-                Speak("Please try again!")      
+                Speak("Please try again!") 
 
+        elif "show my schedule" in self.Data or "what is is my scheldule" in self.Data:
+            file = open("DataBase\\tasks.txt","r")
+            content = file.read()
+            file.close()
+            notification.notify(
+            title = "My schedule :-",
+            message = content,
+            timeout = 15
+            )
+            
         elif "increase" in self.Data or "turn up" in self.Data:
             pyautogui.press("volumeup")
             Speak("I've turned it up.")
