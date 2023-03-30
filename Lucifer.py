@@ -79,7 +79,7 @@ def MainExecution(self):
                    os.startfile(os.path.join(music_dir, songs))
 
         elif "weather" in self.Data or "temperature" in self.Data:
-             search = "temperature"
+             search = "weather"
              url = f"https://www.google.com/search?q={search}"
              r = requests.get(url)
              data = BeautifulSoup(r.text,"html.parser")
