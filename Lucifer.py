@@ -26,6 +26,9 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUiType
 from LuciferUi import Ui_MainWindow
+from pynput.keyboard import Key,Controller
+keyboard = Controller()
+
 print(">> Starting The Lucifer : Wait for few Seconds")
 
 def YouTube(term):
@@ -68,15 +71,6 @@ def MainExecution(self):
                 head.append(ar["title"])
             for i in range(len(day)):
                 Speak(f"{head[i]}")   
-        
-        elif 'play music' in self.Data:
-           music_dir = ''
-           songs = os.listdir(music_dir)
-           rd = random.choice(songs)
-           print(songs)
-           for songs in songs:
-               if songs.endswith('.mp3'):
-                   os.startfile(os.path.join(music_dir, songs))
 
         elif "weather" in self.Data or "temperature" in self.Data:
              search = "weather"
@@ -192,14 +186,23 @@ def MainExecution(self):
             Speak('playing ' + song)
             pywhatkit.playonyt(song)
 
+        elif "photo" in self.Data or "selfie" in self.Data:
+                    pyautogui.press("super")
+                    pyautogui.typewrite("camera")
+                    pyautogui.press("enter")
+                    pyautogui.sleep(1)
+                    Speak("Say Cheese!")
+                    pyautogui.press("enter")
+    
         elif "open" in self.Data:
             try:
                 self.Data = self.Data.replace("open", "")
                 self.Data = self.Data.replace("lucifer", "")
                 Speak(random.choice(
                     ["opening..."+self.Data, "Launching..."+self.Data]))
-                pyautogui.press('win')
+                pyautogui.press('super')
                 pyautogui.write(self.Data)
+                pyautogui.sleep(1)
                 pyautogui.press('enter')
             except:
                 Speak("It doesn't look like you have an app like that")        
@@ -238,23 +241,30 @@ def MainExecution(self):
             except:
                 Speak("Please try again!") 
 
-        elif "show my schedule" in self.Data or "what is is my scheldule" in self.Data:
+        elif "show my schedule" in self.Data or "what do i have for today" in self.Data:
             file = open("DataBase\\tasks.txt","r")
             content = file.read()
             file.close()
             notification.notify(
-            title = "My schedule :-",
+            title = "My schedule",
             message = content,
+            app_icon = "Assets\My-Schedule.ico",
             timeout = 15
             )
             
         elif "increase" in self.Data or "turn up" in self.Data:
-            pyautogui.press("volumeup")
-            Speak("I've turned it up.")
+            for i in range(5):
+                keyboard.press(Key.media_volume_up)
+                keyboard.release(Key.media_volume_up)
+                time.sleep(0.1)
+                Speak("I've turned it up.")
 
         elif "decrease" in self.Data or "turn down" in self.Data:
-            pyautogui.press("volumedown")
-            Speak("I've turned it down")
+            for i in range(5):
+                keyboard.press(Key.media_volume_down)
+                keyboard.release(Key.media_volume_down)
+                time.sleep(0.1)
+                Speak("I've turned it down")
 
         elif "mute" in self.Data:
               pyautogui.press("volumemute")      
