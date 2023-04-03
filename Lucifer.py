@@ -270,8 +270,8 @@ def MainExecution(self):
               pyautogui.press("volumemute")      
               Speak("I've Muted it")  
 
-        elif "start" in self.Data or "volume" in self.Data or "volume control" in self.Data or "gesture based volume control" in self.Data:
-            Speak("Sure!, Starting gesture based volume control!")
+        elif "start" in self.Data or "volume" in self.Data or "media control" in self.Data or "gesture based media control" in self.Data:
+            Speak("Sure!, Starting media based volume control!")
             os.startfile("Main.py")        
 
         elif 'switch' in self.Data or 'change' in self.Data:
