@@ -12,7 +12,7 @@ import webbrowser
 import sys
 import cv2
 import speedtest
-from pyler import notification
+import notification
 import os
 import winshell
 import pyautogui
@@ -44,6 +44,7 @@ class MainThread(QThread):
         MainExecution(self)
 
 def MainExecution(self):
+    
     Speak("Hello There, I'm Lucifer. Your Own Virtual Consciousness. How can I be of Your Service?")
 
     while True:
@@ -112,7 +113,7 @@ def MainExecution(self):
                     Speak(
                         "we are draining, please connect our system to charging point or our system will shutdown soon")
 
-        elif "camera" in self.Datas:
+        elif "Camera" in self.Data:
                 Speak(random.choice(
                     ["Sure!, opening camera", "Alright!, opening camera"]))
                 cap = cv2.VideoCapture(0)
@@ -148,27 +149,6 @@ def MainExecution(self):
             except:
                 Speak("Please try again!")
 
-        elif "reminder" in self.Data or "remember that" in self.Data:
-                Speak("What is the reminder?")
-                self.Data = MicExecution(self)
-                self.Data = str(self.Data)
-                Speak("You said to remember that" + data)
-                reminder_file = open("DataBase\\data.txt", 'a')
-                reminder_file.write('\n')
-                reminder_file.write(self.Data)
-                reminder_file.close()       
-
-        elif "do you remember anything" in self.Data or "what do you remember" in self.Data:
-                reminder_file = open("DataBase\\data.txt", 'r')
-                Speak("You said to remember that: " + reminder_file.read())
-
-        elif "screenshot" in self.Data:
-             pyautogui.keyDown("win")
-             pyautogui.keyDown("shift")
-             pyautogui.press("s")
-             pyautogui.keyUp("win")
-             pyautogui.keyUp("shift")
-
         elif "cpu" in self.Data:
              usage = str(psutil.cpu_percent())
              Speak('CPU usage is at ' + usage)      
@@ -181,14 +161,14 @@ def MainExecution(self):
             pyautogui.press("k")
             Speak("video played")      
 
-        elif 'play' in self.Data:
+        elif 'Play' in self.Data:
             song = self.Data.replace('play', '')
             Speak('playing ' + song)
             pywhatkit.playonyt(song)
 
         elif "photo" in self.Data or "selfie" in self.Data:
                     pyautogui.press("super")
-                    pyautogui.typewrite("camera")
+                    pyautogui.write("Camera")
                     pyautogui.press("enter")
                     pyautogui.sleep(1)
                     Speak("Say Cheese!")
@@ -208,7 +188,7 @@ def MainExecution(self):
                 Speak("It doesn't look like you have an app like that")        
         
         elif "schedule my day" in self.Data:
-            tasks = [] #Empty list 
+            tasks = []
             Speak("Do you want to clear old tasks (Please speak YES or NO)")
             self.Data = MicExecution(self)
             self.Data = str(self.Data)
@@ -256,15 +236,15 @@ def MainExecution(self):
             for i in range(5):
                 keyboard.press(Key.media_volume_up)
                 keyboard.release(Key.media_volume_up)
-                time.sleep(0.1)
                 Speak("I've turned it up.")
+                pass
 
         elif "decrease" in self.Data or "turn down" in self.Data:
             for i in range(5):
                 keyboard.press(Key.media_volume_down)
                 keyboard.release(Key.media_volume_down)
-                time.sleep(0.1)
                 Speak("I've turned it down")
+                pass
 
         elif "mute" in self.Data:
               pyautogui.press("volumemute")      
@@ -307,7 +287,7 @@ def MainExecution(self):
                 except Exception as e:
                     Speak("window is already locked")
 
-        elif 'empty recycle bin' in self.Data or "clean recycle bin" in self.Data:
+        elif 'empty recycle bin' in self.Data or "Clean recycle bin" in self.Data:
                 try:
                     winshell.recycle_bin().empty(confirm=False, show_progress=False, sound=True)
                     Speak("Alright, cleaning recycle bin")
