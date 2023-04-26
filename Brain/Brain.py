@@ -1,5 +1,3 @@
-#API 
-
 fileopen = open("Data\\Api.txt","r")
 API = fileopen.read()
 fileopen.close()
@@ -8,10 +6,7 @@ import openai
 from dotenv import load_dotenv
 openai.api_key = API
 load_dotenv()
-
 completion = openai.Completion()
-
-#Brain
 
 def ReplyBrain(question,chat_log = None):
     FileLog = open("DataBase\\chat_log.txt","r")
