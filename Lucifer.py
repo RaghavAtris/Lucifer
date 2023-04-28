@@ -12,7 +12,7 @@ import webbrowser
 import sys
 import cv2
 import speedtest
-import notification
+from plyer import notification
 import os
 import winshell
 import pyautogui
@@ -28,7 +28,6 @@ from PyQt5.uic import loadUiType
 from LuciferUi import Ui_MainWindow
 from pynput.keyboard import Key,Controller
 keyboard = Controller()
-
 print(">> Starting The Lucifer : Wait for few Seconds")
 
 def YouTube(term):
@@ -44,7 +43,6 @@ class MainThread(QThread):
         MainExecution(self)
 
 def MainExecution(self):
-    
     Speak("Hello There, I'm Lucifer. Your Own Virtual Consciousness. How can I be of Your Service?")
 
     while True:
@@ -113,7 +111,7 @@ def MainExecution(self):
                     Speak(
                         "we are draining, please connect our system to charging point or our system will shutdown soon")
 
-        elif "Camera" in self.Data:
+        elif "Camera" in self.Data or "camera" in self.Data:
                 Speak(random.choice(
                     ["Sure!, opening camera", "Alright!, opening camera"]))
                 cap = cv2.VideoCapture(0)
@@ -129,14 +127,20 @@ def MainExecution(self):
         elif "internet speed" in self.Data:
                     Speak("please wait, fetching your internet speed")
                     wifi  = speedtest.Speedtest()
-                    upload_net = wifi.upload()/1048576         #Megabyte = 1024*1024 Bytes
+                    upload_net = wifi.upload()/1048576       
                     download_net = wifi.download()/1048576
                     Speak(f"Wifi download speed is {download_net} mbp/s")
                     Speak(f"Wifi Upload speed is {upload_net} mbp/s")        
         
+        elif 'play' in self.Data or "Play" in self.Data:
+            song = self.Data.replace('play', '')
+            Speak('playing ' + song)
+            pywhatkit.playonyt(song)
+        
         elif "note" in self.Data:
             pyautogui.press('win')
             pyautogui.write('notepad')
+            pyautogui.sleep(1)
             pyautogui.press('enter')
             Speak("Sure! what should i note?")
             self.Data = MicExecution(self)
@@ -155,20 +159,13 @@ def MainExecution(self):
 
         elif "pause" in self.Data or "stop" in self.Data:
             pyautogui.press("k")
-            Speak("video paused")
 
         elif "resume" in self.Data:
-            pyautogui.press("k")
-            Speak("video played")      
-
-        elif 'Play' in self.Data:
-            song = self.Data.replace('play', '')
-            Speak('playing ' + song)
-            pywhatkit.playonyt(song)
+            pyautogui.press("k")   
 
         elif "photo" in self.Data or "selfie" in self.Data:
-                    pyautogui.press("super")
-                    pyautogui.write("Camera")
+                    pyautogui.press("win")
+                    pyautogui.write("camera")
                     pyautogui.press("enter")
                     pyautogui.sleep(1)
                     Speak("Say Cheese!")
@@ -180,7 +177,7 @@ def MainExecution(self):
                 self.Data = self.Data.replace("lucifer", "")
                 Speak(random.choice(
                     ["opening..."+self.Data, "Launching..."+self.Data]))
-                pyautogui.press('super')
+                pyautogui.press('win')
                 pyautogui.write(self.Data)
                 pyautogui.sleep(1)
                 pyautogui.press('enter')
@@ -188,12 +185,8 @@ def MainExecution(self):
                 Speak("It doesn't look like you have an app like that")        
         
         elif "schedule my day" in self.Data:
-            tasks = []
-            Speak("Do you want to clear old tasks (Please speak YES or NO)")
-            self.Data = MicExecution(self)
-            self.Data = str(self.Data)
-            if "yes" in self.Data:
-                file = open("tasks.txt","w")
+                tasks = []
+                file = open("DataBase\\tasks.txt","w")
                 file.write(f"")
                 file.close()
                 no_tasks = int(input("Enter the no. of tasks :- "))
@@ -203,15 +196,7 @@ def MainExecution(self):
                     file = open("DataBase\\tasks.txt","a")
                     file.write(f"{i}. {tasks[i]}\n")
                     file.close()
-            elif "no" in self.Data:
-                i = 0
-                no_tasks = int(input("Enter the no. of tasks :- "))
-                for i in range(no_tasks):
-                    tasks.append(input("Enter the task :- "))
-                    file = open("DataBase\\tasks.txt","a")
-                    file.write(f"{i}. {tasks[i]}\n")
-                    file.close()
-
+           
         elif "type" in self.Data or "write" in self.Data:
             try:
                 self.Data = self.Data.replace("type", "")
@@ -226,24 +211,24 @@ def MainExecution(self):
             content = file.read()
             file.close()
             notification.notify(
-            title = "My schedule",
-            message = content,
-            app_icon = "Assets\My-Schedule.ico",
-            timeout = 15
+                title = "My schedule",
+                message = content,
+                app_icon = "Assets\My-Schedule.ico",
+                timeout = 15
             )
             
         elif "increase" in self.Data or "turn up" in self.Data:
-            for i in range(5):
-                keyboard.press(Key.media_volume_up)
-                keyboard.release(Key.media_volume_up)
-                Speak("I've turned it up.")
-                pass
+             Speak("I've turned it up.")
+             for i in range(5):
+                    keyboard.press(Key.media_volume_up)
+                    keyboard.release(Key.media_volume_up)
+                    pass
 
         elif "decrease" in self.Data or "turn down" in self.Data:
+            Speak("I've turned it down")
             for i in range(5):
                 keyboard.press(Key.media_volume_down)
                 keyboard.release(Key.media_volume_down)
-                Speak("I've turned it down")
                 pass
 
         elif "mute" in self.Data:
@@ -260,7 +245,7 @@ def MainExecution(self):
                 pyautogui.press("tab")
                 pyautogui.keyUp("alt")
 
-        elif 'minimise' in self.Data:
+        elif 'minimize' in self.Data:
                 Speak(random.choice(["Sure!", "Alright"]))
                 pyautogui.keyDown("win")
                 pyautogui.press("down")
@@ -287,7 +272,7 @@ def MainExecution(self):
                 except Exception as e:
                     Speak("window is already locked")
 
-        elif 'empty recycle bin' in self.Data or "Clean recycle bin" in self.Data:
+        elif 'empty recycle bin' in self.Data or "clean recycle bin" in self.Data:
                 try:
                     winshell.recycle_bin().empty(confirm=False, show_progress=False, sound=True)
                     Speak("Alright, cleaning recycle bin")
