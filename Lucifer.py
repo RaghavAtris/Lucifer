@@ -3,9 +3,7 @@
 #Language Used - Python
 
 import datetime
-import requests
 import random
-from bs4 import BeautifulSoup
 import psutil
 import pywhatkit
 import webbrowser
@@ -40,6 +38,7 @@ def YouTube(term):
 class MainThread(QThread):
     def __init__(self):
         super(MainThread,self).__init__()
+    
     def run(self):
         MainExecution(self)
 
@@ -70,9 +69,9 @@ def MainExecution(self):
             for ar in articles:
                 head.append(ar["title"])
             for i in range(len(day)):
-                Speak(f"{head[i]}")   
+                Speak(f"{head[i]}")
 
-        elif 'weather in' in self.Data or "temperature in " in self.Data or 'weather of' in self.Data or "temperature of" in self.Data:
+        elif 'weather' in self.Data or "temperature" in self.Data:
                 self.Data = self.Data.replace("weather", "")
                 self.Data = self.Data.replace("of", "")
                 self.Data = self.Data.replace("at", "")
@@ -100,7 +99,7 @@ def MainExecution(self):
                     current_humidiy = y["humidity"]
                     z = x["weather"]
                     weather_description = z[0]["description"]
-                    r = ("In " + city_name + " Temperature is " +
+                    r = ("In" + city_name + " Temperature is " +
                         str(int(current_temperature - 273.15)) + " degree celsius " +
                         ", atmospheric pressure " + str(current_pressure) + " hpa unit" +
                         ", humidity is " + str(current_humidiy) + " percent"
@@ -221,9 +220,9 @@ def MainExecution(self):
                 print("")
                 no_tasks = int(input("Enter the number of tasks : "))
                 print("")
+                Speak("Enter the tasks, you want to schedule")
                 i = 0
                 for i in range(no_tasks):
-                    Speak("Enter the tasks, you want to schedule")
                     print("")
                     tasks.append(input("Enter the task : "))
                     print("")
@@ -234,39 +233,50 @@ def MainExecution(self):
         elif "alarm" in self.Data:
                 Speak("Sure!, Please Enter the time!")   
                 print("")
-                time = input("Enter the time : ") 
-                
+                time = input("Enter the time : ")
                 while True:
                     Time_Ac = datetime.datetime.now()
                     now = Time_Ac.strftime("%H:%M:%S")
                     
                     if now == time:
-                        playsound('Assets\\Alarm.mp3')
+                        playsound('Alarm.mp3')
                         hour = int(datetime.datetime.now().hour)
                         if hour >= 0 and hour < 18:
                             Speak("Good Morning")
                             time = datetime.datetime.now().strftime('%I:%M %p')
                             Speak(f"It's {time}.")
-                            search = "weather"
-                            url = f"https://www.google.com/search?q={search}"
-                            r = requests.get(url)
-                            data = BeautifulSoup(r.text,"html.parser")
-                            temp = data.find("div",class_="BNeawe").text
-                            Speak(f"The weather outside is {temp}")
-                            pass
+                            import requests
+                            geo_url = "http://ip-api.com/json"
+                            response = requests.get(geo_url)
+                            data = response.json()
+                            lat = data['lat']
+                            lon = data['lon']
+                            api_key = "241364c869bf698199af0bb545c3ca03"
+                            weather_url = f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&units=metric"
+                            response = requests.get(weather_url)
+                            data = response.json()
+                            print(f"Location: {data['name']}, {data['sys']['country']}")
+                            Speak(f"It's Currently: {data['main']['temp']}°C, And the Weather condition is: {data['weather'][0]['description']}")
+                            break   
                         
                         elif hour >= 18 and hour < 24:
                             Speak("Good Evening")
                             time = datetime.datetime.now().strftime('%I:%M %p')
                             Speak(f"It's {time}.")
-                            search = "weather"
-                            url = f"https://www.google.com/search?q={search}"
-                            r = requests.get(url)
-                            data = BeautifulSoup(r.text,"html.parser")
-                            temp = data.find("div",class_="BNeawe").text
-                            Speak(f"The weather outside is {temp}")
-                            pass
-           
+                            import requests
+                            geo_url = "http://ip-api.com/json"
+                            response = requests.get(geo_url)
+                            data = response.json()
+                            lat = data['lat']
+                            lon = data['lon']
+                            api_key = "241364c869bf698199af0bb545c3ca03"
+                            weather_url = f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&units=metric"
+                            response = requests.get(weather_url)
+                            data = response.json()
+                            print(f"Location: {data['name']}, {data['sys']['country']}")
+                            Speak(f"It's Currently: {data['main']['temp']}°C, And the Weather condition is: {data['weather'][0]['description']}")
+                            break   
+                    
         elif "type" in self.Data or "write" in self.Data:
             try:
                 self.Data = self.Data.replace("type", "")
