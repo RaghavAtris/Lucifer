@@ -73,6 +73,10 @@ def MainExecution(self):
 
         elif 'weather' in self.Data or "temperature" in self.Data:
                 self.Data = self.Data.replace("weather", "")
+                self.Data = self.Data.replace("temperature", "")
+                self.Data = self.Data.replace("is", "")
+                self.Data = self.Data.replace("how", "")
+                self.Data = self.Data.replace("what", "")
                 self.Data = self.Data.replace("of", "")
                 self.Data = self.Data.replace("at", "")
                 self.Data = self.Data.replace("of", "")
@@ -85,7 +89,8 @@ def MainExecution(self):
                 self.Data = self.Data.replace("you", "")
                 self.Data = self.Data.replace("today's", "")
                 self.Data = self.Data.replace("lucifer", "")
-
+                
+                import requests
                 api_key = "241364c869bf698199af0bb545c3ca03"
                 base_url = "http://api.openweathermap.org/data/2.5/weather?"
                 city_name = self.Data
@@ -106,7 +111,7 @@ def MainExecution(self):
                                                                 " and " + str(weather_description))
                     Speak(r)
 
-        elif "location" in self.Data or "where am I" in self.Data:
+        elif "location" in self.Data or "where am i" in self.Data:
                 Speak("please wait, let me check")
                 try:
                     ipAdd = requests.get('https://api.ipify.org').text
