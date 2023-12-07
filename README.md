@@ -16,10 +16,9 @@ it's Capabilities and more...
 - Alert the user about the recent developments around the world
 - Whenever asked, represent any location on the map.
 - Use voice control to calculate any mathematical expressions
-- Operate websites, software, and apps.
-- You can QUENCH your THIRST by asking any query FOR curiosity.
-- OPerates YOUR FAVOURITE APPS, SOFTWARES, WEBSITES, ETC. 
-- Can play your favourite songs by using youtube voice
+- You can QUENCH YOUR THIRST by asking any query for curiosity.
+- Operates YOUR FAVOURITE APPS, SOFTWARES, WEBSITES, ETC. 
+- Can play your favourite songs by using youtube voice.
 
 ## API Keys
 
