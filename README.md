@@ -2,8 +2,8 @@
 
 ## About Lucifer
 
-An A.I. with the ability to interface itself according to the user by reading and storing all the data it can.
-Because of IT's near-limitless capacity, It can perform various tasks presented to it, aiming in reduction of human efforts and helping people in their daily lives.
+Lucifer is the first-of-its-kind AI aiming in reduction of human efforts and helping people in their daily lives.
+Because of IT's near-limitless capacity, It can perform various tasks presented to it, 
 
 ## Built with
 
